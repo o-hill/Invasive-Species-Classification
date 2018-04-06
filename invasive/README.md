@@ -1,21 +1,14 @@
-# invasive
+# Invasive Species Classification
 
-> A Vue.js project
+## To Begin:
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+- Clone the repository!
+- Navigate to invasive/.
+  - Create a directory 'static/'.
+  - Create a subdirectory 'static/images/'.
+- Navigate to 'invasive/server/'.
+- Open an instance of MongoDB.
+- Run `python populate_database.py`.
+  - At this point the image should be split, the database should contain documents for every picture, and all 60 of the split images should be in the /invasive/static/images/' directory.
+- Run `python server.py`. A flask server should start.
+- In another process, navigate anywhere in the repo and run `npm run dev`.
