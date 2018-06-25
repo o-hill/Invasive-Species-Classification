@@ -2,7 +2,7 @@
 
 A tool to help biologists working with Michigan Aerospace annotate drone imagery
 of natural areas, working towards a goal of using neural networks to classify and tag
-invasive species in environments at risk.
+invasive species in environments at risk. The fun parts are written in D3.js.
 
 ## To Begin:
 
