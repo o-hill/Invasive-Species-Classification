@@ -26,6 +26,7 @@ from serial import serialize, deserialize
 import base64
 
 
+
 # ----------------------------------------------------------------
 #               Lightweight database functionality.
 # ----------------------------------------------------------------
@@ -46,7 +47,7 @@ def connect_to_database(database_name = 'invasive'):
 # ----------------------------------------------------------------
 
 
-app = Flask(__name__, static_folder='./static_images/')
+app = Flask(__name__)
 api = Api(app)
 
 # Allow cross-origin requests.
@@ -79,8 +80,8 @@ class Image(Resource):
 
         '''
 
-        image = ImageController(db)
-        data = image.next()
+        controller = ImageController(db)
+        data = controller.next()
 
         return serialize(data)
 
@@ -138,16 +139,6 @@ if __name__ == '__main__':
 
     # Testing
     app.run(port = 1492, debug = True, threaded = True)
-
-
-
-
-
-
-
-
-
-
 
 
 

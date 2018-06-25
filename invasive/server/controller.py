@@ -25,8 +25,7 @@ class ImageController:
 
             Document returned:
                 '_id': the ID of the image,
-                'image': the image to be classified,
-                'image_index': position of the image in the full drone image.
+                'filename': the filename of the image being served.
 
         '''
 
@@ -42,10 +41,13 @@ class ImageController:
             label (some sort of invasive plant species).
 
             data:
-                '_id': ID of the image,
                 'image': the image to be classified,
-                'label': the classification for the image,
-                'image_index': the position of the segment in the full image.
+                'tags': all the classifications associated with the image.
+                    The tags are in the form of: [
+                        [40, 25, 'Glossy Buckthorn']
+                    ]
+
+                    Where the numbers are the coordinates of the classification.
 
         '''
 
@@ -53,12 +55,12 @@ class ImageController:
         print(data)
         print('\n\n\n')
 
-        self.db.unclassified.find_one_and_delete({ '_id': data['_id'] })
+        # self.db.unclassified.find_one_and_delete({ '_id': data['_id'] })
 
         self.db.classified.insert({
-            '_id': data['_id'],
-            'image': data['filename'],
-            'label': data['label'],
+            '_id': data['image']['_id'],
+            'image': data['image']['filename'],
+            'tags': data['tags'],
         })
 
         print('Database classification count:')

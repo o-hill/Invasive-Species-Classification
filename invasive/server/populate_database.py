@@ -3,8 +3,6 @@
     Given a directory, populates the invasive
     species database for further manual classification.
 
-    Also writes the split images into '../static/images/'
-
 '''
 
 from pymongo import MongoClient
@@ -46,6 +44,7 @@ def populate(dir_path):
 
     # REMOVE WHEN WE USE MULTIPLE IMAGES!!!!!
     db.unclassified.remove({})
+    db.classified.remove({})
     print('Database starting with ' + str(db.unclassified.count()) + ' images')
 
     for filename in os.listdir(dir_path):
@@ -54,22 +53,11 @@ def populate(dir_path):
         # put it in the database.
         if filename.endswith('.png') or filename.endswith('.jpg'):
 
-            # Get 60 segmented images from the original image.
-            segmented_images = splitter.image_split(imread(dir_path + filename), 60)
-
-            for image, index in zip(segmented_images, range(60)):
-
-                # Insert the image and the position of the image
-                # into the database.
-                db.unclassified.insert({
-                    'filename': get_filename(filename, index),
-                    'image_index': index,
-                })
-
-                # Save the image to the static_images subdirectory.
-                imsave(get_filename(filename, index), image)
-
-                num_images += 1
+            # Insert the image and the position of the image
+            # into the database.
+            db.unclassified.insert({
+                'filename': filename
+            })
 
     print('Number of documents inserted to the unclassified database:')
     print(num_images)

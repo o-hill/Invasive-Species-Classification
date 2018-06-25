@@ -6,13 +6,15 @@ import api from '../api/connect'
 Vue.use(Vuex)
 
 var current_image = {}
+var classifications = []
 
 export default new Vuex.Store({
 
     // -------- State variables ----------
     state: {
 
-        current_image: current_image
+        current_image: current_image,
+        classifications: classifications     
     },
 
     // -------- Mutations --------------
@@ -26,8 +28,12 @@ export default new Vuex.Store({
             return state.current_image
         },
 
-        update_label(state, data) {
-            state.current_image['label'] = data
+        add_classification(state, data) {
+            state.classifications.push(data)
+        },
+
+        get_classifications(state) {
+            return state.classifications
         }
     },
 
@@ -46,17 +52,22 @@ export default new Vuex.Store({
 
         classify_image(context) {
 
-            console.log('Classification data:')
-            console.log(context.state.current_image)
+            let post_data = {
+                'image': context.state.current_image,
+                'tags': context.state.classifications
+            }
 
-            api.post_classification(context.state.current_image).then(function(response) {
+            console.log('Classification data:')
+            console.log(post_data)
+
+            api.post_classification(post_data).then(function(response) {
                 console.log('Image succesfully classified!')
                 context.commit('set_current_image', response.data)
             })
         },
 
-        set_label(context, data) {
-            context.commit('update_label', data)
+        add_tag(context, data) {
+            context.commit('add_classification', data)
         }
     }
 })

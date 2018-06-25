@@ -28,6 +28,7 @@ def serialize(obj, key = None):
 
 def deserialize(obj, key = None):
     # Return an object if it is simple; otherwise recursively iterate through.
+    print(obj)
     if (type(obj) is list):
         new_list = []
         for el in obj:
@@ -35,14 +36,16 @@ def deserialize(obj, key = None):
         return new_list
     elif (type(obj) is dict):
         new_dict = {}
+        print('Object: ', obj)
         for k, v in obj.items():
             nk = camel_to_snake(k)
             new_dict[nk] = deserialize(v, key = nk)
         return new_dict
     else:
-        if (type(obj) is str) and (re.search(r'(_id)', key)):
+        if (type(obj) is str) and key is not None:
             # Convert to an ObjectID for use in Mongo!
-            return ObjectId(obj)
+            if (re.search(r'(_id)', key)):
+                return ObjectId(obj)
         else:
             return obj
 
