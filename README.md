@@ -1,6 +1,6 @@
 # Invasive Species Classification
 
-This is a tool to help biologists working with Michigan Aerospace annotate drone imagery
+A tool to help biologists working with Michigan Aerospace annotate drone imagery
 of natural areas, working towards a goal of using neural networks to classify and tag
 invasive species in environments at risk.
 
