@@ -47,15 +47,9 @@ class ImageController:
                         [40, 25, 'Glossy Buckthorn']
                     ]
 
-                    Where the numbers are the coordinates of the classification.
+                Where the numbers are the coordinates of the classification.
 
         '''
-
-        print('\n\n\nClassify data:')
-        print(data)
-        print('\n\n\n')
-
-        # self.db.unclassified.find_one_and_delete({ '_id': data['_id'] })
 
         self.db.classified.insert({
             '_id': data['image']['_id'],

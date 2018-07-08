@@ -74,11 +74,7 @@ class Image(Resource):
     '''
 
     def get(self):
-        '''
-
-            Returns the next image to be displayed.
-
-        '''
+        '''Returns the next image to be displayed.'''
 
         controller = ImageController(db)
         data = controller.next()
@@ -92,19 +88,29 @@ class Image(Resource):
             Classifies an image.
 
             data:
-                '_id': ID of the image,
-                'image': the actual image,
-                'image_index': the position of the image in the full drone image,
-                'label': the classification of the image.
+                'image': {
+                    '_id': MongoDB ObjectId,
+                    'filename': filename of the image
+                }
+                'tags': the classifications of the image. They
+                look something like:
+                [
+                    [
+                        x_cord,
+                        y_cord,
+                        species
+                    ],
+                    [
+                        300,
+                        518.97,
+                        'Glossy Buckthorn'
+                    ]
+                ]
 
         '''
 
         data = request.json
         data = deserialize(data)
-
-        print('\n\n\nData:')
-        print(data)
-        print('\n\n\n')
 
         controller = ImageController(db)
         controller.classify(data)
@@ -121,10 +127,6 @@ class Image(Resource):
 
 # Get an image and classify it.
 api.add_resource(Image, '/images', methods = ['GET', 'POST'])
-
-
-
-
 
 
 # -----------------------------------------------------------------

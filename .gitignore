@@ -1,2 +1,4 @@
 static/images/*
 node_modules/
+server/image.py
+*.png

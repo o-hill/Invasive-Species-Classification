@@ -30,15 +30,8 @@ def get_filename(filename, index):
 
 
 def populate(dir_path):
-    '''
+    '''Insert images into the database given a path to a directory.'''
 
-        Insert images into the database
-        given a path to a directory.
-
-    '''
-
-
-    splitter = ImageSplitter()
     db = connect_to_database()
     num_images = 0
 

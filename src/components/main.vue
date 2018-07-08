@@ -87,7 +87,7 @@
 
             square_data = {
               'label': name,
-              coords: this.current_square
+              'coords': this.current_square
             }
 
             this.$store.dispatch('add_tag', square_data)
