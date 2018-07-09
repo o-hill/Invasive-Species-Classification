@@ -58,12 +58,12 @@
 
       computed: {
 
-          // Return the decoded image from the database.
-          image() {
-              console.log('Computed Image:')
-              console.log(this.$store.state.current_image)
-              return '/static/images/' + this.$store.state.current_image['filename']
-          }
+        // Grab the image filename from the store.
+        image() {
+            console.log('Computed Image:')
+            console.log(this.$store.state.current_image)
+            return '/static/images/' + this.$store.state.current_image['filename']
+        }
       },
 
       methods: {
@@ -103,7 +103,7 @@
       mounted() {
         this.find_next_image()
 
-        function get_square_color(species) {
+        var get_square_color = function(species) {
           if (species === 'Autumn Olive')
             return '#E5943E' // Orange
           else if (species === 'Purple Loosestrife')
@@ -118,14 +118,11 @@
             console.log('Error! No species to classify of the name ', species)
         }
 
-        var ddata = [[40, 40, 'Glossy Buckthorn'], [75, 300, 'Purple Loosestrife'], [450, 134, 'Phragmite'], [580, 423, 'Autumn Olive']]
-
-
         // D3.js stuff for the squares.
 
-        // Update the current mouse position.
         let that = this
         var svg = d3.select('svg')
+
         svg.on('mousemove', function() {
           svg.selectAll('*').remove()
           svg.selectAll('rect')
