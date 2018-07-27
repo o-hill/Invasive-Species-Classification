@@ -28,7 +28,6 @@ def serialize(obj, key = None):
 
 def deserialize(obj, key = None):
     # Return an object if it is simple; otherwise recursively iterate through.
-    print(obj)
     if (type(obj) is list):
         new_list = []
         for el in obj:
@@ -36,7 +35,6 @@ def deserialize(obj, key = None):
         return new_list
     elif (type(obj) is dict):
         new_dict = {}
-        print('Object: ', obj)
         for k, v in obj.items():
             nk = camel_to_snake(k)
             new_dict[nk] = deserialize(v, key = nk)
@@ -49,9 +47,6 @@ def deserialize(obj, key = None):
         else:
             return obj
 
-
-# Functions for preserving naming conventions in the separate languages.
-# Written by Matt Lewis (Michigan Aerospace)
 
 def camel_to_snake(camel):
     # Convert camelCase to snake_case.

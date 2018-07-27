@@ -1,9 +1,11 @@
 '''
 
     RESTful API for a simple website that serves
-    up segmented images of natural areas and asks
+    up images of natural areas and asks
     the user to identify which invasive species
     exist in the photo.
+
+    Stores all data in a MongoDB database.
 
 '''
 
@@ -95,22 +97,16 @@ class Image(Resource):
                 'tags': the classifications of the image. They
                 look something like:
                 [
-                    [
-                        x_cord,
-                        y_cord,
-                        species
-                    ],
-                    [
-                        300,
-                        518.97,
-                        'Glossy Buckthorn'
-                    ]
+                    [ x_cord, y_cord, species ],
+                    [ 300, 518.97, 'Glossy Buckthorn' ]
                 ]
 
         '''
 
         data = request.json
         data = deserialize(data)
+
+        print('Received data: ', data)
 
         controller = ImageController(db)
         controller.classify(data)

@@ -94,6 +94,9 @@
         },
 
         get_next_image() {
+
+          let svg = d3.select('svg')
+          svg.selectAll('rect').remove()
           this.$store.dispatch('classify_image')
         },
 
@@ -124,7 +127,27 @@
         var svg = d3.select('svg')
 
         svg.on('mousemove', function() {
-          svg.selectAll('*').remove()
+          svg.select('rect[id="mouseRect"]').remove()
+
+          var mouse = d3.mouse(this)
+          svg.append('rect')
+            .attr('width', 30)
+            .attr('height', 30)
+            .attr('x', mouse[0] - 15)
+            .attr('y', mouse[1] - 15)
+            .attr('fill', get_square_color(that.current_species))
+            .attr('fill-opacity', '0.5')
+            .attr('id', 'mouseRect')
+        });
+
+        svg.on('click', function() {
+          var mouse = d3.mouse(this)
+          that.$store.dispatch('add_tag', [
+            mouse[0] - 15,
+            mouse[1] - 15,
+            String(that.current_species)
+          ])
+
           svg.selectAll('rect')
             .data(that.$store.state.classifications)
             .enter()
@@ -135,24 +158,6 @@
             .attr('y', function(d) { return d[1]; })
             .attr('fill', function(d) { return get_square_color(d[2]); })
             .attr('fill-opacity', '0.5')
-
-          var mouse = d3.mouse(this)
-          svg.append('rect')
-            .attr('width', 30)
-            .attr('height', 30)
-            .attr('x', mouse[0] - 15)
-            .attr('y', mouse[1] - 15)
-            .attr('fill', get_square_color(that.current_species))
-            .attr('fill-opacity', '0.5')
-        });
-
-        svg.on('click', function() {
-          var mouse = d3.mouse(this)
-          that.$store.dispatch('add_tag', [
-            mouse[0] - 15,
-            mouse[1] - 15,
-            String(that.current_species)
-          ])
         })
       }
     }

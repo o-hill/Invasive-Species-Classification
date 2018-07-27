@@ -5,8 +5,8 @@ import api from '../api/connect'
 // Use Vuex as the global data storage for the app.
 Vue.use(Vuex)
 
-var current_image = {}
-var classifications = []
+var current_image = { }
+var classifications = [ ]
 
 export default new Vuex.Store({
 
@@ -20,20 +20,24 @@ export default new Vuex.Store({
     // -------- Mutations --------------
     mutations: {
         
-        set_current_image(state, data) {
+        setCurrentImage(state, data) {
             state.current_image = data
         },
 
-        get_current_image(state) {
+        getCurrentImage(state) {
             return state.current_image
         },
 
-        add_classification(state, data) {
+        addClassification(state, data) {
             state.classifications.push(data)
         },
 
-        get_classifications(state) {
+        getClassifications(state) {
             return state.classifications
+        },
+
+        clearClassifications(state) {
+          state.classifications = [ ]
         }
     },
 
@@ -46,7 +50,7 @@ export default new Vuex.Store({
             api.get_next_image().then(function(response) {
                 console.log('Response:')
                 console.log(response.data)
-                context.commit('set_current_image', response.data)
+                context.commit('setCurrentImage', response.data)
             })
         },
 
@@ -60,14 +64,17 @@ export default new Vuex.Store({
             console.log('Classification data:')
             console.log(post_data)
 
+            context.commit('clearClassifications')
+
             api.post_classification(post_data).then(function(response) {
                 console.log('Image succesfully classified!')
-                context.commit('set_current_image', response.data)
+                context.commit('setCurrentImage', response.data)
             })
         },
 
         add_tag(context, data) {
-            context.commit('add_classification', data)
+            context.commit('addClassification', data)
         }
+
     }
 })

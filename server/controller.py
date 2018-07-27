@@ -44,24 +44,16 @@ class ImageController:
                 'image': the image to be classified,
                 'tags': all the classifications associated with the image.
                     The tags are in the form of: [
+                        [x_cord, y_cord, species_name],
                         [40, 25, 'Glossy Buckthorn']
                     ]
 
-                Where the numbers are the coordinates of the classification.
-
         '''
+
+        self.db.unclassified.remove({ '_id': data['image']['_id'] })
 
         self.db.classified.insert({
             '_id': data['image']['_id'],
             'image': data['image']['filename'],
             'tags': data['tags'],
         })
-
-        print('Database classification count:')
-        print(self.db.classified.count())
-
-
-
-
-
-

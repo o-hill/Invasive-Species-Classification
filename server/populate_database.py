@@ -25,15 +25,10 @@ def connect_to_database(database_name = 'invasive'):
     return database
 
 
-def get_filename(filename, index):
-    return '../static/images/' + filename[:-4] + '_tile_' + str(index) + filename[-4:]
-
-
 def populate(dir_path):
     '''Insert images into the database given a path to a directory.'''
 
     db = connect_to_database()
-    num_images = 0
 
     # REMOVE WHEN WE USE MULTIPLE IMAGES!!!!!
     db.unclassified.remove({})
@@ -51,9 +46,6 @@ def populate(dir_path):
             db.unclassified.insert({
                 'filename': filename
             })
-
-    print('Number of documents inserted to the unclassified database:')
-    print(num_images)
 
     print('Total number of documents currently in the unclassified collection:')
     print(db.unclassified.count())
