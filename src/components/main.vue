@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex xs2></v-flex>
         <v-flex xs8>
-          <v-card class='primary wrapper'>
+          <v-card class='wrapper' color='white'>
             <v-card-media :src='image' height='720'>
             </v-card-media>
             <svg id='svg-overlay' height='720' width='1098.66'></svg>
@@ -12,7 +12,7 @@
                 <v-card-text class='black--text'>
                     Choose a species to classify this image as:
                 </v-card-text>
-                <v-btn flat large color='red'
+                <v-btn flat large color='red' class='mb-3'
                     @click.native='set_current_species("Glossy Buckthorn")'>
                     Glossy Buckthorn
                 </v-btn>
@@ -29,16 +29,16 @@
                     Autumn Olive
                 </v-btn>
               </v-flex>
-              <v-flex xs12>
-                <v-card-text class='black--text'>
-                  When you are done classifying this image, click here to get the next image.
-                </v-card-text>
-                <v-btn flat large color='black'
-                  @click.native='get_next_image()'>
-                  Next image
-                </v-btn>
-              </v-flex>
           </v-card>
+        </v-flex>
+        <v-flex xs2>
+          <v-card-text style='margin-top: 100%;' class='white--text'>
+            When you are done classifying this image, click here to save these tags and get the next image.
+          </v-card-text>
+          <v-btn flat large icon color='white'
+            @click.native='get_next_image()'>
+            <v-icon>arrow_forward</v-icon>
+          </v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -165,6 +165,10 @@
 
 </script>
 <style>
+
+  html {
+    background-color: #333;
+  }
 
   .wrapper {
     position: relative;
